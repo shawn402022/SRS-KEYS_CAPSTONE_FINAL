@@ -1,0 +1,19 @@
+
+/* Keybed */
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.white-key {
+    stroke: #555555; 
+    fill: #FFFFF7; 
+}
+
+.black-key {
+    stroke: #979797;
+    fill: #4b4b4b;
+
+
+}
+
