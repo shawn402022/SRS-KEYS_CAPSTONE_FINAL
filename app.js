@@ -40,7 +40,9 @@ const app ={
             })
             utils.setAttributes(whiteKey, {
                 "x": whiteKeyPositionX,
-                "data-note-name": noteName
+                "data-note-name": noteName,
+                "rx":20,
+                "ry":20
             })
 
             text.classList.add("white-key-text")
@@ -78,7 +80,9 @@ const app ={
                     utils.setAttributes(blackKey, {
                         "x": blackKeyPositionX,
                         "data-sharp-name": `${ naturalSharpNoteName}#${ naturalNotes[1]}`,
-                        "data-flat-name": `${ naturalFlatNoteName}b${ naturalNotes[1]}`
+                        "data-flat-name": `${ naturalFlatNoteName}b${ naturalNotes[1]}`,
+                        "rx":8,
+                        "ry":8
                     })
 
 
