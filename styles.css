@@ -10,6 +10,12 @@
     fill: #FFFFF7; 
 }
 
+.white-key-text {
+    font-size: 1.5em;
+    pointer-events: none;
+    user-select:none
+}
+
 .black-key {
     stroke: #979797;
     fill: #4b4b4b;
