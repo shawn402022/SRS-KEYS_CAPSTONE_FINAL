@@ -132,7 +132,7 @@ const app ={
 
     createKey({className, width, height}) {
         const key = utils.createSVGElement("rect")
-        key.classList.add(className)
+        key.classList.add(className, "key")
         utils.setAttributes(key, {
             "width": width,
             "height": height
@@ -189,6 +189,24 @@ const app ={
 
 
         return svg
+    },
+    displayNotes(notes) {
+        const pianoKeys = document.querySelectorAll(".key")
+        utils.removeClassFromNodeCollection(pianoKeys, "show")
+
+        notes.forEach(noteName => {
+            pianoKeys.forEach(key => {
+                const naturalName = key.dataset.noteName;
+                const sharpName = key.dataset.sharpName;
+                const flatName = key.dataset.flatName;
+
+                if (naturalName === noteName || sharpName === noteName || flatName === noteName) {
+                    key.classList.add("show");
+                }
+            })
+        })
+        console.log(pianoKeys)
+
     }
     
 }
@@ -206,7 +224,17 @@ const utils = {
     },
     addTextContent(el, content) {
         el.textContent = content
-    }     
+    },
+    removeClassFromNodeCollection(nodeCollection, classToRemove)  {
+        nodeCollection.forEach(node => {
+            if (node.classList.contains(classToRemove)) {
+                node.classList.remove(classToRemove)
+            }
+
+        })
+
+    }    
 }
 app.setupPiano()
-console.log(app.getNaturalNotes(range))
+// app.displayNotes()
+// console.log(app.getNaturalNotes(range))

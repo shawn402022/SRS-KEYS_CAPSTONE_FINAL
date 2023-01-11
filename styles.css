@@ -5,6 +5,10 @@
     padding: 0;
 }
 
+/* 
+WHITE KEYS
+*/
+
 .white-key {
     stroke: #555555; 
     fill: #FFFFF7; 
@@ -15,6 +19,11 @@
     pointer-events: none;
     user-select:none
 }
+
+
+/* 
+BLACK KEYS
+*/
 
 .black-key {
     stroke: #979797;
@@ -29,4 +38,18 @@
     pointer-events: none;
     user-select: none;
 
+}
+
+
+
+
+/* 
+Key Highlighting
+*/
+.show {
+    fill: #f5f541;
+}
+/* Shows the note name in black when highlighted so its more visible */
+.show.black-key ~ text {
+    fill: black
 }
