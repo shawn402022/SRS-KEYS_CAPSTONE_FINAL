@@ -7,7 +7,7 @@ const naturalNotes= ['C', 'D', 'E', 'F', 'G', 'A', 'B']
 const naturalNotesSharps= ['C', 'D', 'F', 'G', 'A',]
 const naturalNotesFlats= ['D', 'E', 'G', 'A', 'B']
 
-const range = ['G2','A7']
+const range = ['C2','C6']
 
 
 
@@ -44,7 +44,23 @@ const app ={
             for(let i =  0; i< naturalNotesSharps.length; i++) {
                 let naturalSharpNoteName = naturalNotesSharps[i]
                 let naturalFlatNoteName = naturalNotesFlats[i]
-                console.log( naturalSharpNoteName, naturalFlatNoteName )
+                if (naturalSharpNoteName === naturalNotes[0]) {
+                    blackKey.setAttribute("data-sharp-name", `${naturalSharpNoteName}#${naturalNotes[1]}`)
+                    blackKey.setAttribute("data-flat-name", `${naturalFlatNoteName}b${naturalNotes[1]}`)
+                    // add doubel spaces between D# AND A#
+                    if(naturalSharpNoteName === "D" || naturalSharpNoteName === "A") {
+                        blackKeyPositionX += whiteKeyWidth * 2 
+                    } else {
+                        blackKeyPositionX += whiteKeyWidth
+                    }
+                    //  if last iteration of keys, do not add black key
+                    if (index !== array.length -1) {
+                        SVG.appendChild(blackKey)
+                    }
+                    
+
+                }
+                
             }
 
         })
@@ -126,4 +142,4 @@ const utils = {
        
 }
 app.setupPiano()
-// console.log(app.getNaturalNotes(range))
+console.log(app.getNaturalNotes(range))
