@@ -1,63 +1,53 @@
-let numOfOct = 5;
-const octWidth = 560;
+// 
 
 const whiteKeyWidth = 80
 const pianoHeight = 400
 
 const naturalNotes= ['C', 'D', 'E', 'F', 'G', 'A', 'B']
-const range = ['F3','A7']
+const naturalNotesSharps= ['C', 'D', 'F', 'G', 'A',]
+const naturalNotesFlats= ['D', 'E', 'G', 'A', 'B']
 
-const pianoSVG = 
-`
-    <svg
-        width="100%"
-        viewBox= "0 0 ${numOfOct * octWidth } 400"
-        version='1.1'
-        xmlns="http://www.w3.org/2000/svg"
-        xmlns:xlink= "http://www.w3.org/1999/xlink"
-        >
-        <g id ="piano-keyboard">
-        </g>
-    </svg>
-`;
+const range = ['G2','A7']
+
+
 
 const piano = document.querySelector("#piano");
 
 const app ={
     setupPiano() {
+        
         const allNaturalNotes = this.getNaturalNotes(range)
+        const pianoWidth = allNaturalNotes.length * whiteKeyWidth
+
+        const SVG = this.createMainSVG(pianoWidth, pianoHeight)
         //  Add main SVG to piano div
-        piano.innerHTML = pianoSVG
-        const pianoKeyboard = document.querySelector("#piano-keyboard")
+        piano.appendChild(SVG)
 
-        //  Creating octaves
-        for (let i = 0; i < numOfOct; i++) {
-            const octave = this.createOctave(i)
-            
-            let whiteKeyXPosition = 0
-            let blackKeyXPosition = 60
-            // add white keys to octave
-            for (let i = 0; i < 7; i++) {
-                const whiteKey = this.createKey({ className: "white-key", width:whiteKeyWidth, height:400})
-                whiteKey.setAttribute("x", whiteKeyXPosition)
-                whiteKeyXPosition += whiteKeyWidth
-                octave.appendChild(whiteKey)
-            }
-            // add black keys to octave
-            for (let i = 0; i < 5; i++) {
-                const blackKey = this.createKey({ className: "black-key", width:whiteKeyWidth / 2, height:250})
-                blackKey.setAttribute("x", blackKeyXPosition)
-                if (i === 1) {
-                    blackKeyXPosition += whiteKeyWidth * 2 
-                } else{
-                    blackKeyXPosition += whiteKeyWidth
-                }
-                octave.appendChild(blackKey)
+
+        //add white keys
+        let whiteKeyPositionX = 0
+        for(let i = 0; i < allNaturalNotes.length; i++) {
+            const whiteKey = this.createKey({className: "white-key", width: whiteKeyWidth, height: pianoHeight})
+            whiteKey.setAttribute("x", whiteKeyPositionX)
+            whiteKey.setAttribute("data-note-name", allNaturalNotes[i])
+
+            whiteKeyPositionX += whiteKeyWidth
+            SVG.appendChild(whiteKey)
+
+        }    
+        // add black keys
+        let blackKeyPositionX = 60
+        allNaturalNotes.forEach((naturalNotes, index, array) => {
+            const blackKey = this.createKey( {className : "black-key", width : whiteKeyWidth / 2, height: pianoHeight/ 1.6   })
+            blackKey.setAttribute("x", blackKeyPositionX)
+
+            for(let i =  0; i< naturalNotesSharps.length; i++) {
+                let naturalSharpNoteName = naturalNotesSharps[i]
+                let naturalFlatNoteName = naturalNotesFlats[i]
+                console.log( naturalSharpNoteName, naturalFlatNoteName )
             }
 
-            // add to DOM
-            pianoKeyboard.appendChild(octave)
-        }
+        })
     },
 
     createOctave(octNum) {
@@ -111,6 +101,17 @@ const app ={
             }
         }
         return allNaturalNotes
+    },
+    createMainSVG(pianoWidth, pianoHeight) {
+        const svg = utils.createSVGElement("svg")
+
+        svg.setAttribute("width", "100%")
+        svg.setAttribute("version", "1.1")
+        svg.setAttribute("xmlns","http://www.w3.org/2000/svg")
+        svg.setAttribute("mlns:xlink", "http://www.w3.org/1999/xlink")
+        svg.setAttribute("viewBox", `0 0 ${pianoWidth} ${pianoHeight}`)
+
+        return svg
     }
     
 }
@@ -121,7 +122,8 @@ const utils = {
         return element
 
     },
+
        
 }
 app.setupPiano()
-console.log(app.getNaturalNotes(range))
+// console.log(app.getNaturalNotes(range))
