@@ -22,4 +22,11 @@
 
 
 }
+.black-key-text {
+    font-size: 1em;
+    fill:#fff;
+    font-weight: 200;
+    pointer-events: none;
+    user-select: none;
 
+}
