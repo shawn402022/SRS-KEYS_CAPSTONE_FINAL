@@ -22,11 +22,20 @@ const sound = new Howl({
 
 const soundEngine = {
     init() {
-        console.log('it works');
-        sound.play();
-
+        // This makes individial notes(sprites) of a longer audio file
+        const lengthOfNote = 516; // each sprite is 516 ms long
+        let timeIndex = 0;
+        for(let i = 24; i <= 96; i++) {
+            sound['_sprite'][i] = [timeIndex, lengthOfNote];
+            timeIndex += lengthOfNote;
+        }
+        sound.play('26');
+        console.log('should be playing')
     }
 }
+
+
+
 
 ////////////////////////////////////////////////////////////////////////---TONAL/JS
 
@@ -403,6 +412,6 @@ const utils = {
     }    
 }
 
-app.setupPiano()
-app.displayNotes()
+// app.setupPiano()
+// app.displayNotes()
 // console.log(app.getNaturalNotes(range))

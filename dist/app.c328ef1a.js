@@ -3386,8 +3386,15 @@ var sound = new _howler.Howl({
 });
 var soundEngine = {
   init: function init() {
-    console.log('it works');
-    sound.play();
+    // This makes individial notes(sprites) of a longer audio file
+    var lengthOfNote = 516; // each sprite is 516 ms long
+    var timeIndex = 0;
+    for (var i = 24; i <= 96; i++) {
+      sound['_sprite'][i] = [timeIndex, lengthOfNote];
+      timeIndex += lengthOfNote;
+    }
+    sound.play('26');
+    console.log('should be playing');
   }
 };
 
@@ -3711,8 +3718,9 @@ var utils = {
     });
   }
 };
-app.setupPiano();
-app.displayNotes();
+
+// app.setupPiano()
+// app.displayNotes()
 // console.log(app.getNaturalNotes(range))
 },{"howler":"../node_modules/howler/dist/howler.js"}],"../../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
