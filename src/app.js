@@ -1,3 +1,47 @@
+////////////////////////////////////////////////////////////////////////---PACKAGE IMPORTS
+
+// import{note, interval, } from "@tonaljs/tonal";
+// import { Note } from "tonal";
+// import{chord} from "@tonaljs/chord";
+// import { detect } from "@tonaljs/chord-detect";
+// import { entries}  from "@tonaljs/chord-dictionary";
+// import { Midi } from "tonal";
+import { Howler, howl, Howl } from 'howler';
+
+////////////////////////////////////////////////////////////////////////--HOWLER/JS
+const sound = new Howl({
+    src:['assets/PIANOsprite.mp3'],
+    onload() {
+        console.log('sound file has been loaded')
+        soundEngine.init();
+    },
+    onloaderror(e, msg) {
+        console.log('Error', e, msg)
+    }
+})
+
+const soundEngine = {
+    init() {
+        console.log('it works');
+        sound.play();
+
+    }
+}
+
+////////////////////////////////////////////////////////////////////////---TONAL/JS
+
+const startNotes = ['C','C#','Db', 'D', 'D#', 'Eb', 'E', 'F', 'F#', 'Gb', 'G', 'G#', 'Ab', 'A#', 'Bb', 'B']
+// const { Note } = require("tonal");
+// const { Midi } = require("tonal");
+// const { Chord } = require("tonal");
+
+
+
+
+
+
+
+
 ////////////////////////////////////////////////////////////////////////---WEB AUDO API
 
 Window.AudioContext = window.AudioContext || window.webkitAudioContext
@@ -73,9 +117,9 @@ console.log(oscillators)
 
     const velocityGainAmount = (1 /127) * velocity;
     const velocityGain = ctx.createGain();
+
     velocityGain.gain.value = velocityGainAmount ;   
 
-    
     osc.type = 'saw';
     osc.frequency.value = midiToFreq(note);
 

@@ -1,0 +1,27 @@
+{
+  "name": "week10_capstone",
+  "version": "1.0.0",
+  "description": "\"# SRS-KEYS_CAPSTONE_FINAL\"",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shawn402022/SRS-KEYS_CAPSTONE_FINAL.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shawn402022/SRS-KEYS_CAPSTONE_FINAL/issues"
+  },
+  "homepage": "https://github.com/shawn402022/SRS-KEYS_CAPSTONE_FINAL#readme",
+  "dependencies": {
+    "@tonaljs/chord": "^4.9.0",
+    "@tonaljs/chord-dictionary": "^4.8.0",
+    "@tonaljs/tonal": "^4.10.0",
+    "howler": "^2.2.3",
+    "tonal": "^4.11.0"
+  }
+}
