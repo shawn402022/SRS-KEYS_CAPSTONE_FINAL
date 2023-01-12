@@ -2,10 +2,10 @@
 
 Window.AudioContext = window.AudioContext || window.webkitAudioContext
 let ctx;
-
-const Oscillator={}
-
 const startButton = document.querySelector('button');
+
+// oscilator will be an object and hold the midi values, also tokeep track of whats playing 
+const oscillators={}
 startButton.addEventListener('click', () => {
     ctx = new AudioContext();
     console.log(ctx)
@@ -63,23 +63,49 @@ function handleInput(input) {
 
 
 function noteOn(note, velocity) {
-    console.log(note, velocity)
-    const osc = ctx.createOscillator();
+const osc = ctx.createOscillator();
+
+console.log(oscillators)
+
     // volume and gain
-    const oscGain = ctx.createGain()
-    oscGain.gain.value = 0.33
+    const oscGain = ctx.createGain();
+    oscGain.gain.value = 0.33;
+
+    const velocityGainAmount = (1 /127) * velocity;
+    const velocityGain = ctx.createGain();
+    velocityGain.gain.value = velocityGainAmount ;   
 
     
     osc.type = 'saw';
     osc.frequency.value = midiToFreq(note);
-    osc.connect(oscGain)
-    oscGain.connect(ctx.destination);
-    console.log(osc)
-    console.log(oscGain)
+
+    osc.connect(oscGain);
+    oscGain.connect(velocityGain);
+    velocityGain.connect(ctx.destination);
+
+    osc.gain = oscGain; 
+    
+    oscillators[note.toString()] = osc;
+    console.log(oscillators)
     osc.start();
 }
 
+// when you let go of the key it send a note off message so the sound can stop
 function noteOff(note) {
+    const osc = oscillators[note.toString()];
+    const oscGain = osc.gain;
+    
+    oscGain.gain.setValueAtTime(oscGain.gain.value, ctx.currentTime);
+    oscGain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.03);
+
+    setTimeout(() => {
+        osc.stop();
+        osc.disconnect();
+    }, 20 )
+    
+
+    delete oscillators[note.toString()];
+    console.log(oscillators);
     console.log(note);
 }
 
