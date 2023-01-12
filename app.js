@@ -1,3 +1,27 @@
+////////////////////////////////////////////////////////////////////////---WEB AUDO API
+
+Window.AudioContext = window.AudioContext || window.webkitAudioContext
+let ctx;
+
+const Oscillator={}
+
+const startButton = document.querySelector('button');
+startButton.addEventListener('click', () => {
+    ctx = new AudioContext();
+    console.log(ctx)
+})
+
+// Make Midi Keyboard note value correspond to a musical note
+function midiToFreq(number){
+const a = 440;
+return( a / 32 ) * (2 ** ((number - 9) / 12 ));
+}
+
+
+
+
+
+
 ////////////////////////////////////////////////////////////////////////---MIDI TO BROWSER
 
 if(navigator.requestMIDIAccess) {
@@ -39,7 +63,20 @@ function handleInput(input) {
 
 
 function noteOn(note, velocity) {
-    console.log(note, velocity);
+    console.log(note, velocity)
+    const osc = ctx.createOscillator();
+    // volume and gain
+    const oscGain = ctx.createGain()
+    oscGain.gain.value = 0.33
+
+    
+    osc.type = 'saw';
+    osc.frequency.value = midiToFreq(note);
+    osc.connect(oscGain)
+    oscGain.connect(ctx.destination);
+    console.log(osc)
+    console.log(oscGain)
+    osc.start();
 }
 
 function noteOff(note) {
@@ -253,6 +290,8 @@ const app ={
     displayNotes(notes) {
         const pianoKeys = document.querySelectorAll(".key")
         utils.removeClassFromNodeCollection(pianoKeys, "show")
+
+        // pianoKeys.addEventListener(midiAccess)
 
         notes.forEach(noteName => {
             pianoKeys.forEach(key => {
