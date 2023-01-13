@@ -1,0 +1,66 @@
+
+/* Keybed */
+*{
+    margin: 0;
+    padding: 0;
+}
+
+#piano {
+    clip-path: inset(15px 0px 0px 0px);
+    margin-top:-15px
+}
+
+/* .svg {
+    filter:drop-shadow(0 0 40px black)
+} */
+
+/* 
+WHITE KEYS
+*/
+
+.white-key {
+    stroke: #555555; 
+    fill: #FFFFF7; 
+}
+
+.white-key-text {
+    font-size: 1.5em;
+    pointer-events: none;
+    user-select:none
+}
+
+
+/* 
+BLACK KEYS
+*/
+
+.black-key {
+    stroke: #979797;
+    fill: #4b4b4b;
+
+
+}
+.black-key-text {
+    font-size: 1em;
+    fill:#fff;
+    font-weight: 200;
+    pointer-events: none;
+    user-select: none;
+
+}
+
+
+
+
+/* 
+Key Highlighting
+*/
+.show {
+    fill: #f5f541;
+}
+/* Shows the note name in black when highlighted so its more visible */
+.show.black-key ~ text {
+    fill: black
+}
+
+/*# sourceMappingURL=/styles.8986bff4.css.map */
