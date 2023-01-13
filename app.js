@@ -1,4 +1,4 @@
-// import { Midi } from "tonal";
+
 
 
 
@@ -14,6 +14,7 @@ startButton.addEventListener('click', () => {
     ctx = new AudioContext();
     
     startAlgo()
+    
   
     
 })
@@ -52,37 +53,58 @@ function success(midiAccess) {
 }
 
     // This Object is used to to match midi notes(key) to actual piano note values
-    const midiNote = {
-        84:"C6", 
-        83:"B5", 82:"Bb5", 81:"A5", 80:"Ab5", 79:"G5", 78:"Gb5", 77:"F5", 76:"E5", 75:"Eb5", 74:"D5", 73:"Db5", 72:"C5",
-        71:"B4", 70:"Bb4", 69:"A4", 68:"Ab4", 67:"G4", 66:"Gb4", 65:"F4", 64:"E4", 63:"Eb4", 62:"D4", 61:"Db4", 60:"C4",
-        59:"B3", 58:"Bb3", 57:"A3", 56:"Ab3", 55:"G3", 54:"Gb3", 53:"F3", 52:"E3", 51:"Eb3", 50:"D3", 49:"Db3", 48:"C3",
-        47:"B2", 46:"Bb2", 45:"A2", 44:"Ab2", 43:"G2", 42:"Gb2", 41:"F2", 40:"E2", 39:"Eb2", 38:"D2", 37:"Db2", 36:"C2",
-        
-    }
-    const correctNotesC = { 84:"C6", 72:"C5", 60:"C4", 48:"C3", 36:"C2",}
-    const correctNotesD = { 74:"D5", 62:"D4", 50:"D3", 38:"D2",}
-    const correctNotesE = { 76:"E5", 64:"E4", 52:"E3", 40:"E2",}
-    const correctNotesF = { 77:"F5", 65:"F4", 53:"F3", 41:"F2",}
-    const correctNotesG = { 79:"G5", 67:"G4", 55:"G3", 43:"G2",}
-    const correctNotesA = { 81:"A5", 69:"A4", 57:"A3", 45:"A2",}
-    const correctNotesB = { 83:"B5", 71:"B4", 59:"B3", 47:"B2",}
+const midiNote = {
+    84:"C6", 
+    83:"B5", 82:"Bb5", 81:"A5", 80:"Ab5", 79:"G5", 78:"Gb5", 77:"F5", 76:"E5", 75:"Eb5", 74:"D5", 73:"Db5", 72:"C5",
+    71:"B4", 70:"Bb4", 69:"A4", 68:"Ab4", 67:"G4", 66:"Gb4", 65:"F4", 64:"E4", 63:"Eb4", 62:"D4", 61:"Db4", 60:"C4",
+    59:"B3", 58:"Bb3", 57:"A3", 56:"Ab3", 55:"G3", 54:"Gb3", 53:"F3", 52:"E3", 51:"Eb3", 50:"D3", 49:"Db3", 48:"C3",
+    47:"B2", 46:"Bb2", 45:"A2", 44:"Ab2", 43:"G2", 42:"Gb2", 41:"F2", 40:"E2", 39:"Eb2", 38:"D2", 37:"Db2", 36:"C2",
+    
+}
+const correctNotesC = { 84:"C6", 72:"C5", 60:"C4", 48:"C3", 36:"C2",}
+const correctNotesD = { 74:"D5", 62:"D4", 50:"D3", 38:"D2",}
+const correctNotesE = { 76:"E5", 64:"E4", 52:"E3", 40:"E2",}
+const correctNotesF = { 77:"F5", 65:"F4", 53:"F3", 41:"F2",}
+const correctNotesG = { 79:"G5", 67:"G4", 55:"G3", 43:"G2",}
+const correctNotesA = { 81:"A5", 69:"A4", 57:"A3", 45:"A2",}
+const correctNotesB = { 83:"B5", 71:"B4", 59:"B3", 47:"B2",}
+
+const qEasy = 'Play the Key of'
+
+const qGroupsEl = document.getElementById('qGroups')
 
 
-function startAlgo() {
-    const qBot = document.getElementsByClassName("qNotesC")
-    console.log('questions123')
+
+
+function startAlgo(question, note) {
+    const qGroupEl = document.createElement('div')
+    qGroupEl.classList.add('cNote')
+    console.log(12345)
     
+    qGroupEl.innerHTML = `
+        <h3>${qEasy}</h3>
+        <p>${'C'}</p>
+    `
+    qGroupsEl.appendChild(qGroupEl)
+    console.log(54321)
+
+    qGroupsEl.style.display = 'flex';
+    qGroupsEl.style.flexDirection = 'column';
+    qGroupsEl.style.justifyContent = top;
+    qGroupsEl.style.flex = 1;
+    qGroupsEl.style.border = '#f5f541';
+    qGroupsEl.style.borderWidth ='thick';
+    qGroupsEl.style.borderStyle = 'double';
+
     
-    qBot.innerHTML =` <form>What Note is C?</form>`
-    console.log('questions123121')
-    
+
 
 }
 
 
-
+// This function is for pressing the key
 function handleInput(input) {
+    console.log(midiNote)
     console.log("test")
     console.log(input)
     const command = input.data[0];
