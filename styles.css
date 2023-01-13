@@ -1,3 +1,72 @@
+/* .flex-container-1 {
+    display: flex;
+    flex-direction: row;
+    max-height: max-content;
+    border-color: #555555;
+    border-width: 100%;
+
+} */
+
+/* .qNotesC{
+    display: flex;
+    flex-direction: row;
+    max-height: max-content;
+    border-color: #555555;
+    border-width: 100%;
+
+
+} */
+
+
+.qbox {
+    display: flex;
+    flex-direction: column;
+    justify-content: top;
+    flex: 1;
+
+
+ 
+
+    
+    border: #f5f541;
+    border-width: thick;
+    border-style: double;
+
+}
+
+.qbox1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: top;
+    flex: 2;
+
+ 
+
+
+    
+    border:blue;
+    border-width: thick;
+    border-style: double;
+
+}
+
+.container1{
+    display: flex;
+    flex-direction: row;
+    height: 50vh;
+    
+    
+
+
+
+    
+
+    border: red;
+    border-width: thick;
+    border-style: double;
+}
+
+
 
 /* Keybed */
 *{

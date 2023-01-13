@@ -70,11 +70,12 @@ function success(midiAccess) {
 
 
 function startAlgo() {
-    const qBot = document.getElementById(qGroupNotes)
+    const qBot = document.getElementsByClassName("qNotesC")
     console.log('questions123')
     
     
-    qBot.innerHTML =` <p>What Note is C?</p>`
+    qBot.innerHTML =` <form>What Note is C?</form>`
+    console.log('questions123121')
     
 
 }
