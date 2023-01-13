@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "@tonaljs/midi": "^4.9.0",
-    "@tonaljs/tonal": "^4.10.0"
-  }
-}
