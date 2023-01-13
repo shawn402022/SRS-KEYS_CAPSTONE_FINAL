@@ -1,3 +1,7 @@
+// import { Midi } from "tonal";
+const qBot = document.getElementById(qGroupNotes)
+
+
 ////////////////////////////////////////////////////////////////////////---WEB AUDO API
 
 Window.AudioContext = window.AudioContext || window.webkitAudioContext
@@ -8,12 +12,14 @@ const startButton = document.querySelector('button');
 const oscillators={}
 startButton.addEventListener('click', () => {
     ctx = new AudioContext();
-    console.log(ctx)
+  
+    
 })
 
 // Make Midi Keyboard note value correspond to a musical note
 function midiToFreq(number){
 const a = 440;
+console.log(number)
 return( a / 32 ) * (2 ** ((number - 9) / 12 ));
 }
 
@@ -22,7 +28,7 @@ return( a / 32 ) * (2 ** ((number - 9) / 12 ));
 
 
 
-////////////////////////////////////////////////////////////////////////---MIDI TO BROWSER
+////////////////////////////////////////////////////////////////////////---WEB MIDI API
 
 if(navigator.requestMIDIAccess) {
     navigator.requestMIDIAccess().then(success, failure)
@@ -33,30 +39,57 @@ function success(midiAccess) {
     midiAccess.addEventListener('statechange', updateDevices)
 
     const inputs = midiAccess.inputs
+    const outputs = midiAccess.outputs
+    // console.log(outputs)
 
     inputs.forEach((input) => {
         // input.onmidimessage = handleInput
-        input.addEventListener('midimessage', handleInput)
+        input.addEventListener('midimessage',  handleInput)
+        // input.addEventListener('midimessage', ()=> console.log(input))   
     })    
 }
 
-
+    // This Object is used to to match midi notes(key) to actual piano note values
+    const midiNote = {
+        84:"C6", 
+        83:"B5", 82:"Bb5", 81:"A5", 80:"Ab5", 79:"G5", 78:"Gb5", 77:"F5", 76:"E5", 75:"Eb5", 74:"D5", 73:"Db5", 72:"C5",
+        71:"B4", 70:"Bb4", 69:"A4", 68:"Ab4", 67:"G4", 66:"Gb4", 65:"F4", 64:"E4", 63:"Eb4", 62:"D4", 61:"Db4", 60:"C4",
+        59:"B3", 58:"Bb3", 57:"A3", 56:"Ab3", 55:"G3", 54:"Gb3", 53:"F3", 52:"E3", 51:"Eb3", 50:"D3", 49:"Db3", 48:"C3",
+        47:"B2", 46:"Bb2", 45:"A2", 44:"Ab2", 43:"G2", 42:"Gb2", 41:"F2", 40:"E2", 39:"Eb2", 38:"D2", 37:"Db2", 36:"C2",
+        
+    }
+    const correctNotesC = { 84:"C6", 72:"C5", 60:"C4", 48:"C3", 36:"C2",}
+    const correctNotesD = { 74:"D5", 62:"D4", 50:"D3", 38:"D2",}
+    const correctNotesE = { 76:"E5", 64:"E4", 52:"E3", 40:"E2",}
+    const correctNotesF = { 77:"F5", 65:"F4", 53:"F3", 41:"F2",}
+    const correctNotesG = { 79:"G5", 67:"G4", 55:"G3", 43:"G2",}
+    const correctNotesA = { 81:"A5", 69:"A4", 57:"A3", 45:"A2",}
+    const correctNotesB = { 83:"B5", 71:"B4", 59:"B3", 47:"B2",}
 
 function handleInput(input) {
+    console.log("test")
+    console.log(input)
     const command = input.data[0];
     const note = input.data[1];
+    console.log(note)
     const velocity = input.data[2];
-    
+
+
+    console.log(oscillators)
+    app.displayNotes([midiNote[note]])
     switch(command) {
         case 144: // notOn
         if (velocity > 0) {
             noteOn(note, velocity);
+            console.log(test)
         } else {
             noteOff(note);
         }
         break;
         case 128: //note off
         noteOff(note);
+        console.log(note)
+        
             break;
     }
 }
@@ -64,8 +97,8 @@ function handleInput(input) {
 
 function noteOn(note, velocity) {
 const osc = ctx.createOscillator();
-
-console.log(oscillators)
+console.log(osc, 'osc')
+console.log(oscillators, 'oscillators')
 
     // volume and gain
     const oscGain = ctx.createGain();
@@ -86,7 +119,7 @@ console.log(oscillators)
     osc.gain = oscGain; 
     
     oscillators[note.toString()] = osc;
-    console.log(oscillators)
+    // console.log(oscillators)
     osc.start();
 }
 
@@ -106,7 +139,7 @@ function noteOff(note) {
 
     delete oscillators[note.toString()];
     console.log(oscillators);
-    console.log(note);
+    // console.log(note);
 }
 
 function updateDevices(event) { 
@@ -182,7 +215,8 @@ const app ={
             if (index === array.length -1) {
                 return
             }
-
+            // naturalNotes.addEventListener('click', console.log(test))
+            
             const blackKeyTextGroup = utils.createSVGElement("g")
             const blackKey = this.createKey( {className : "black-key", width : whiteKeyWidth / 2, height: pianoHeight/ 1.6   })
             const flatNameText = utils.createSVGElement("text")
@@ -324,13 +358,13 @@ const app ={
                 const naturalName = key.dataset.noteName;
                 const sharpName = key.dataset.sharpName;
                 const flatName = key.dataset.flatName;
-
+                    // makes the keys light up 
                 if (naturalName === noteName || sharpName === noteName || flatName === noteName) {
                     key.classList.add("show");
                 }
             })
         })
-        console.log(pianoKeys)
+        // console.log(pianoKeys)
     }  
 }
 
@@ -361,4 +395,11 @@ const utils = {
 
 app.setupPiano()
 app.displayNotes()
+// const midiNote = {
+//     60:"C4"
+// }
 // console.log(app.getNaturalNotes(range))
+
+
+// const kontrol = MIDIAccess.inputs
+// console.log(kontrol)
