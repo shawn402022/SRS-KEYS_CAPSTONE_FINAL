@@ -1,5 +1,5 @@
 // import { Midi } from "tonal";
-const qBot = document.getElementById(qGroupNotes)
+
 
 
 ////////////////////////////////////////////////////////////////////////---WEB AUDO API
@@ -12,6 +12,8 @@ const startButton = document.querySelector('button');
 const oscillators={}
 startButton.addEventListener('click', () => {
     ctx = new AudioContext();
+    
+    startAlgo()
   
     
 })
@@ -65,6 +67,19 @@ function success(midiAccess) {
     const correctNotesG = { 79:"G5", 67:"G4", 55:"G3", 43:"G2",}
     const correctNotesA = { 81:"A5", 69:"A4", 57:"A3", 45:"A2",}
     const correctNotesB = { 83:"B5", 71:"B4", 59:"B3", 47:"B2",}
+
+
+function startAlgo() {
+    const qBot = document.getElementById(qGroupNotes)
+    console.log('questions123')
+    
+    
+    qBot.innerHTML =` <p>What Note is C?</p>`
+    
+
+}
+
+
 
 function handleInput(input) {
     console.log("test")
