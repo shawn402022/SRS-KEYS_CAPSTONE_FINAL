@@ -7,13 +7,13 @@
 Window.AudioContext = window.AudioContext || window.webkitAudioContext
 let ctx;
 const startButton = document.querySelector('button');
-
+let startAlgoEl 
 // oscilator will be an object and hold the midi values, also tokeep track of whats playing 
 const oscillators={}
 startButton.addEventListener('click', () => {
     ctx = new AudioContext();
     
-    startAlgo()
+  startAlgoEl= startAlgo('C')
     
   
     
@@ -76,17 +76,20 @@ const qGroupsEl = document.getElementById('qGroups')
 
 
 
-function startAlgo(question, note) {
+function startAlgo( key, ) {
     const qGroupEl = document.createElement('div')
+   
+    
     qGroupEl.classList.add('cNote')
-    console.log(12345)
+ 
     
     qGroupEl.innerHTML = `
-        <h3>${qEasy}</h3>
-        <p>${'C'}</p>
+        <h3>${qEasy} ${key}</h3>
     `
+    
+  
     qGroupsEl.appendChild(qGroupEl)
-    console.log(54321)
+
 
     qGroupsEl.style.display = 'flex';
     qGroupsEl.style.flexDirection = 'column';
@@ -96,22 +99,45 @@ function startAlgo(question, note) {
     qGroupsEl.style.borderWidth ='thick';
     qGroupsEl.style.borderStyle = 'double';
 
+    return key
+
+    // const findKeys = (obj, val) =>
+    // Object.keys(correctNotesC).filter(key => obj[key] === val);
+
+    // console.log(findKeys(correctNotesC,60))
     
+    // midiToFreq(number)
+
+
+    // const findKeys = (obj, val) =>
+    // Object.keys(obj).filter(key => obj[key] === val);
+    
+    // console.log(midiToFreq)
+    // midiNote.addEventListener('click', () => {
+    //     if (Object.keys(midiNote) === Object.keys(correctNotesC)) 
+    //     console.log('equal')
+    
+    // })
+    
+
+
 
 
 }
 
 
+// const keyPress = MIDIMessageEvent.int8Array()
+// console.log(Object.keys(midiNote))
+// console.log(keyPress)
+
 // This function is for pressing the key
 function handleInput(input) {
-    console.log(midiNote)
-    console.log("test")
-    console.log(input)
     const command = input.data[0];
     const note = input.data[1];
     console.log(note)
     const velocity = input.data[2];
-
+    console.log(startAlgoEl == midiNote[note] )
+    console.log(startAlgoEl , midiNote[note] )
 
     console.log(oscillators)
     app.displayNotes([midiNote[note]])
@@ -432,12 +458,8 @@ const utils = {
 }
 
 app.setupPiano()
-app.displayNotes()
-// const midiNote = {
-//     60:"C4"
-// }
-// console.log(app.getNaturalNotes(range))
+// app.displayNotes()
 
 
-// const kontrol = MIDIAccess.inputs
-// console.log(kontrol)
+
+
